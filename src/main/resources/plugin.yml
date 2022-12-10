@@ -1,0 +1,6 @@
+name: Personalization
+version: '${project.version}'
+main: net.framedev.personalization.Personalization
+authors: [ moteloff ]
+commands:
+  effects:
