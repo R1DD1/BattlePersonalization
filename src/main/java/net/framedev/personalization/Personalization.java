@@ -25,6 +25,8 @@ public final class Personalization extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChooserListener(this), this);
 
         getCommand("effects").setExecutor(new Commands());
+        new Config().defaultData();
+
         loadConfiguration();
 
 
@@ -63,7 +65,7 @@ public final class Personalization extends JavaPlugin {
     }
 
     private void loadConfiguration() {
-        this.getConfig().options().copyDefaults(false);
+        this.getConfig().options().copyDefaults(true);
         this.saveConfig();
     }
 }

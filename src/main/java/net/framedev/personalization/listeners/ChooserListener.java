@@ -46,6 +46,8 @@ public class ChooserListener implements Listener {
         else if (item.getType() == Material.EMERALD) { user.customization.setDeathMsg(item.getItemMeta().getDisplayName()); }
         else if (item.getType() == Material.ARROW) { user.customization.setArrowTrail(Particle.valueOf(item.getItemMeta().getLore().get(0))); }
 
-        event.setCancelled(true);
+        if (event.getClickedInventory().getHolder() != event.getWhoClicked()) {
+            event.setCancelled(true);
+        }
     }
 }
