@@ -2,10 +2,7 @@ package net.framedev.personalization;
 
 import net.framedev.personalization.items.ItemBuilder;
 import net.framedev.personalization.user.User;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,16 +27,18 @@ public class Commands implements CommandExecutor {
                     inventory.setItem(3,new ItemBuilder(Material.EMERALD, "Сообщение при смерти", user.customization.getDeathMsg()).build());
                     inventory.setItem(4,new ItemBuilder(Material.REDSTONE, "Эффект удара", user.customization.getHitParticle().name()).build());
                     inventory.setItem(5,new ItemBuilder(Material.DIAMOND_SWORD, "Эффект убийства", user.customization.getKillParticle().name()).build());
+                    inventory.setItem(6,new ItemBuilder(Material.ARROW, "След стрелы", user.customization.getArrowTrail().name()).build());
                     player.openInventory(inventory);
                 } else if (args[0].equalsIgnoreCase("list")) {
-                    List<String> titles = Arrays.asList("Сообщение при смерти", "Эффект удара", "Эффект убийства");
-                    List<String> paths = Arrays.asList("death_msg", "hit_effects", "kill_effects");
-                    List<Material> materials = Arrays.asList(Material.EMERALD, Material.REDSTONE, Material.DIAMOND_SWORD);
+                    List<String> titles = Arrays.asList("Сообщение при смерти", "Эффект удара", "Эффект убийства", "След стрелы");
+                    List<String> paths = Arrays.asList("death_msg", "hit_effects", "kill_effects", "arrow_trail");
+                    List<Material> materials = Arrays.asList(Material.EMERALD, Material.REDSTONE, Material.DIAMOND_SWORD, Material.ARROW);
                     inventory = Bukkit.createInventory(null, personalization.getConfig().getInt("inventories.effects.size"), personalization.getConfig().getString("inventories.effects.title"));
 
-                    for (int j = 0; j<=2; j++) {
-                        for (int i = 0; i <= 2; i++) {
-                            ItemStack item = new ItemBuilder(materials.get(j), personalization.getConfig().getString("personalization." + paths.get(j)).split("-")[i], personalization.getConfig().getString("personalization." + paths.get(j)).split("-")[i]).build();
+                    for (int j = 0; j<= titles.size() - 1; j++) {
+                        String[] lore = personalization.getConfig().getString("personalization." + paths.get(j)).split("-");
+                        for (int i = 0; i <= lore.length - 1; i++) {
+                            ItemStack item = new ItemBuilder(materials.get(j), titles.get(j), lore[i]).build();
                             inventory.addItem(item);
                         }
                     }

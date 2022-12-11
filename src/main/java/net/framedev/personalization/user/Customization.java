@@ -32,4 +32,13 @@ public class Customization {
     private String deathMsg = "";
     private Effect hitParticle = Effect.GHAST_SHOOT;
     private Effect killParticle = Effect.DRAGON_BREATH;
+    private Particle arrowTrail = Particle.HEART;
+
+    public Particle getArrowTrail() {
+        return arrowTrail;
+    }
+
+    public void setArrowTrail(Particle arrowTrail) {
+        this.arrowTrail = arrowTrail;
+    }
 }

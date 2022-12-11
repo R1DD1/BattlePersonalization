@@ -41,9 +41,10 @@ public class ChooserListener implements Listener {
         ItemStack item = event.getCurrentItem();
         User user = plugin.getUser(player);
 
-        if (item.getType() == Material.REDSTONE) { user.customization.setHitParticle(Effect.valueOf(item.getItemMeta().getDisplayName())); }
-        else if (item.getType() == Material.DIAMOND_SWORD) { user.customization.setKillParticle(Effect.valueOf(item.getItemMeta().getDisplayName())); }
+        if (item.getType() == Material.REDSTONE) { user.customization.setHitParticle(Effect.valueOf(item.getItemMeta().getLore().get(0))); }
+        else if (item.getType() == Material.DIAMOND_SWORD) { user.customization.setKillParticle(Effect.valueOf(item.getItemMeta().getLore().get(0))); }
         else if (item.getType() == Material.EMERALD) { user.customization.setDeathMsg(item.getItemMeta().getDisplayName()); }
+        else if (item.getType() == Material.ARROW) { user.customization.setArrowTrail(Particle.valueOf(item.getItemMeta().getLore().get(0))); }
 
         event.setCancelled(true);
     }
