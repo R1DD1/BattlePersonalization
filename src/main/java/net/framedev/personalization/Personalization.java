@@ -29,7 +29,7 @@ public final class Personalization extends JavaPlugin {
 
         loadConfiguration();
 
-
+        new Inventories();
     }
 
     public static Personalization getInstance() {

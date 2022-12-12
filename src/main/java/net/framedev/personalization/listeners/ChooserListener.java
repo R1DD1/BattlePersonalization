@@ -1,5 +1,6 @@
 package net.framedev.personalization.listeners;
 
+import net.framedev.personalization.Inventories;
 import net.framedev.personalization.Personalization;
 import net.framedev.personalization.items.SpecialItems;
 import net.framedev.personalization.user.User;
@@ -23,19 +24,6 @@ public class ChooserListener implements Listener {
     }
 
     @EventHandler
-    public void onInteract(InventoryDragEvent event) {
-        event.getWhoClicked().sendMessage("drag");
-        event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onInteract(InventoryInteractEvent event) {
-        event.getWhoClicked().sendMessage("inter");
-        event.setCancelled(true);
-    }
-
-
-    @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
@@ -43,8 +31,16 @@ public class ChooserListener implements Listener {
 
         if (item.getType() == Material.REDSTONE) { user.customization.setHitParticle(Effect.valueOf(item.getItemMeta().getLore().get(0))); }
         else if (item.getType() == Material.DIAMOND_SWORD) { user.customization.setKillParticle(Effect.valueOf(item.getItemMeta().getLore().get(0))); }
-        else if (item.getType() == Material.EMERALD) { user.customization.setDeathMsg(item.getItemMeta().getDisplayName()); }
+        else if (item.getType() == Material.EMERALD) { user.customization.setDeathMsg(item.getItemMeta().getLore().get(0)); }
         else if (item.getType() == Material.ARROW) { user.customization.setArrowTrail(Particle.valueOf(item.getItemMeta().getLore().get(0))); }
+        else if (item.getType() == Material.PAPER) {
+            player.closeInventory();
+            new Inventories().openList(player);
+        }
+        else if (item.getType() == Material.BARRIER) {
+            player.closeInventory();
+            new Inventories().openMain(player);
+        }
 
         if (event.getClickedInventory().getHolder() != event.getWhoClicked()) {
             event.setCancelled(true);
